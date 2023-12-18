@@ -18,6 +18,11 @@ export function CartContextProvider({children}) {
   function addProduct(productId) {
     setCartProducts(prev => [...prev,productId]);
   }
+
+  function addToCart(productId){
+    addProduct(productId)
+    history.back();
+  }
   function removeProduct(productId) {
     setCartProducts(prev => {
       const pos = prev.indexOf(productId);
@@ -31,7 +36,7 @@ export function CartContextProvider({children}) {
     setCartProducts([]);
   }
   return (
-    <CartContext.Provider value={{cartProducts,setCartProducts,addProduct,removeProduct,clearCart}}>
+    <CartContext.Provider value={{cartProducts,setCartProducts,addProduct,addToCart,removeProduct,clearCart}}>
       {children}
     </CartContext.Provider>
   );
