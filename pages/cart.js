@@ -147,7 +147,7 @@ const List_Box = styled.div`
     width:90%
 `
 
-const AddRemove = styled.div``
+const RemoveBox = styled.div``
   ;
 
 
@@ -257,14 +257,13 @@ export default function CartPage() {
                                   </div>
                                   <strong>{product.title}</strong>
                                   <strong>{cartProducts.filter(id => id === product._id).length * product.price} บาท</strong>
-                                  <AddRemove>
-                                    <Button onClick={() => lessOfThisProduct(product._id)}>-</Button>
+                                  <RemoveBox>
                                     <QuantityLabel>
                                       {cartProducts.filter(id => id === product._id).length}
                                     </QuantityLabel>
                                     <Button
-                                      onClick={() => moreOfThisProduct(product._id)}>+</Button>
-                                  </AddRemove>
+                                      onClick={() => lessOfThisProduct(product._id)}>+</Button>
+                                  </RemoveBox>
                                   <strong>Steam</strong>
                                   
                                 </Product_order>

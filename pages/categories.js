@@ -8,7 +8,7 @@ import Title from "@/components/Title";
 import Footer from "@/components/Footer"
 import Input from "@/components/Input";
 import Button from "@/components/Button";
-import { Category } from "@/models/Category";
+import { Platform } from "@/models/Platform";
 import { useRef, useState } from "react";
 import { useRouter } from "next/router";
 
@@ -71,7 +71,7 @@ form button, a button{
 }
 */
 
-export default function CategoryPage({products, categories}) {
+export default function CategoryPage({products, platforms}) {
 
   const [platform, setPlatform] = useState("");
 
@@ -86,19 +86,6 @@ export default function CategoryPage({products, categories}) {
     */ 
   }
 
-  const filterSearch = (platform) => {
-    const {query} = router;
-    if (platform) query.platform = platform;
-
-    router.push({
-      pathname: router.pathname,
-      query: query,
-    });
-  };
-
-  const platformHandler = (e) =>{
-    filterSearch({category: e.target.value})
-  }
 
   return (
     <>
@@ -109,9 +96,9 @@ export default function CategoryPage({products, categories}) {
         <div>
           <Game_genre_box>
             <label htmlFor="games-genre">แพลทฟอร์ม</label>
-            <Select id="games-genre" name="games-genre" onChange={platformHandler}>
-              {categories.map(category => 
-                (<option key={category._id} value={category._id}>{category.name}</option>))
+            <Select id="games-genre" name="games-genre">
+              {platforms.map(platform => 
+                (<option key={platform._id} value={platform._id}>{platform.name}</option>))
               }
             </Select>
           </Game_genre_box>
@@ -127,11 +114,11 @@ export default function CategoryPage({products, categories}) {
 export async function getServerSideProps() {
   await mongooseConnect();
   const products = await Product.find({}, null, {sort:{'_id':-1}});
-  const categories = await Category.find({}, null, {sort:{'_id':-1}});
+  const platforms = await Platform.find({}, null, {sort:{'_id':-1}});
   return {
     props:{
       products: JSON.parse(JSON.stringify(products)),
-      categories: JSON.parse(JSON.stringify(categories))
+      platforms: JSON.parse(JSON.stringify(platforms))
     }
   };
 }

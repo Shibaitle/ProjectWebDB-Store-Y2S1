@@ -103,9 +103,8 @@ const ItemList = styled.div`
 
 
 export default function Payment(){
-    const {cartProducts,addProduct,removeProduct,clearCart} = useContext(CartContext);
+    const {cartProducts,removeProduct,clearCart} = useContext(CartContext);
     const [products,setProducts] = useState([]);
-    const [isSuccess,setIsSuccess] = useState(false);
     useEffect(() => {
       if (cartProducts.length > 0) {
         axios.post('/api/cart', {ids:cartProducts})
@@ -125,19 +124,29 @@ export default function Payment(){
         clearCart();
       }
     }, []);
+
+    let name = "SupaKarl"; // Mock Name
+    let email = "kunbe......@gmail.com" //Mock Email
     async function goToPayment() {
       const response = await axios.post('/api/checkout', {
-        name,email,city,postalCode,streetAddress,country,
-        cartProducts,
+        name,email, cartProducts
       });
       if (response.data.url) {
         window.location = response.data.url;
       }
+      removeAll();
+      
     }
     let total = 0;
     for (const productId of cartProducts) {
       const price = products.find(p => p._id === productId)?.price || 0;
       total += price;
+    }
+
+    function removeAll(){
+        for (const productId of cartProducts) {
+          removeProduct(productId);
+        }
     }
 
     function goBack(){
