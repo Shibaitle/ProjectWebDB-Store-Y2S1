@@ -264,7 +264,7 @@ export default function CartPage() {
                                     <Button
                                       onClick={() => lessOfThisProduct(product._id)}>+</Button>
                                   </RemoveBox>
-                                  <strong>Steam</strong>
+                                  <strong>{product.name}</strong>
                                   
                                 </Product_order>
                             

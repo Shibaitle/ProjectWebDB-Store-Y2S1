@@ -1,3 +1,4 @@
+import Link from "next/link";
 import styled from "styled-components";
 
 
@@ -90,7 +91,7 @@ export default function UserInfo(){
                             <h2>Placebobo@gmail.com</h2>
                         </email_box>
                         <a href="#">รายการชำระเงิน</a>
-                        <a href="/cart">ตะกร้า</a>
+                        <Link href="/cart">ตะกร้า</Link>
                         <a href="#">ล็อกเอาต์</a>
                     </option_box>
                 </Opt_Flex>

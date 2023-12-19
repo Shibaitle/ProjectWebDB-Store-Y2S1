@@ -74,14 +74,13 @@ export default function Header() {
   const [mobileNavActive,setMobileNavActive] = useState(false);
   return (
     <StyledHeader>
+      <Center>
         <Wrapper>
           <Logo href={'/'}><ShopLogo /></Logo>
           <StyledNav mobileNavActive={mobileNavActive}>
             <NavLink href={'/products'}>Games</NavLink>
             <NavLink href={'/categories'}>Platform</NavLink>
             <NavLink href={'/account'}>Account</NavLink>
-            <NavLink href={'/products'}>Login</NavLink>
-            <NavLink href={'/products'}>Sign up</NavLink>
             <NavLink href={'/cart'}><CartIcon/> ({cartProducts.length})</NavLink>
             
           </StyledNav>
@@ -89,6 +88,7 @@ export default function Header() {
             <BarsIcon />
           </NavButton>
         </Wrapper>
+        </Center>
     </StyledHeader>
   );
 }

@@ -182,7 +182,7 @@ export default function ProductPage({product, prodPlatform}) {
                   </Prod_buy_options>
                 </Product_interact>
                 <Prod_genre>
-                  <h3>แพลทฟอร์ม : {prodPlatform.name}</h3>
+                  <h3>Platform : {prodPlatform.name}</h3>
                 </Prod_genre>
                 <Prod_description>{product.description}</Prod_description>
               </Product_info>

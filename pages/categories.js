@@ -95,7 +95,7 @@ export default function CategoryPage({products, platforms}) {
         <h1>เกมในร้านค้า</h1>
         <div>
           <Game_genre_box>
-            <label htmlFor="games-genre">แพลทฟอร์ม</label>
+            <label htmlFor="games-genre">Platform</label>
             <Select id="games-genre" name="games-genre">
               {platforms.map(platform => 
                 (<option key={platform._id} value={platform._id}>{platform.name}</option>))
