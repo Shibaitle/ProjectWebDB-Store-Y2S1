@@ -132,7 +132,7 @@ export default function History(){
                             </Indicate_Header>
                             <List_order_info>
                                 {products.map(product => (
-                                  <Product_order>
+                                  <Product_order key={product._id}>
                                       <div className="imgbox">
                                         <img src={product.images[0]} alt=""/>
                                       </div>

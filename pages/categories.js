@@ -9,6 +9,9 @@ import Footer from "@/components/Footer"
 import Input from "@/components/Input";
 import Button from "@/components/Button";
 import { Category } from "@/models/Category";
+import { useRef, useState } from "react";
+import { useRouter } from "next/router";
+
 
 
 const Queries_box = styled.div`
@@ -16,17 +19,22 @@ const Queries_box = styled.div`
   margin:0 auto;
   height: 100%;
   max-width: 90%;
-  padding: 2vh 0 2vh;
+  padding: 3vh 0 3vh 0;
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  form{
+  div{
     display: flex;
     width:  100%;
     justify-content: space-around;
     align-items: center;
     label{
       padding: 0vh 2vw 0vh 2vw;
+      width:50%;
+      display: flex;
+      text-wrap: nowrap;
+      font-size: 1.5vw;
+      font-weight: bold;
     }
     button{
       justify-content: center;
@@ -40,11 +48,13 @@ const Queries_box = styled.div`
 
 const Game_genre_box = styled.div`
   display: flex;
-  padding: 3vw;
+  width: 50%;
+  height:100%;
   `; 
 
 const Select = styled.select`
-  max-width:100%;
+  width:100%;
+  font-size: 1.0vw;
 `;
 
 /*
@@ -61,25 +71,51 @@ form button, a button{
 }
 */
 
-export default function ProductsPage({products, categories}) {
+export default function CategoryPage({products, categories}) {
+
+  const [platform, setPlatform] = useState("");
+
+  const searchCategory = async (e) =>{
+    /*
+    if (platform !== "All"){
+      const newProduct = await Product.find({category, platform}, null, {sort:{'_id':-1}});
+      newProduct: JSON.parse(JSON.stringify(newProduct));
+    }
+    
+    Can't function as designed in time, pause to be sure another parts done in time
+    */ 
+  }
+
+  const filterSearch = (platform) => {
+    const {query} = router;
+    if (platform) query.platform = platform;
+
+    router.push({
+      pathname: router.pathname,
+      query: query,
+    });
+  };
+
+  const platformHandler = (e) =>{
+    filterSearch({category: e.target.value})
+  }
+
   return (
     <>
       <Header />
       <Center>
-        <Title>All products</Title>
         <Queries_box>
         <h1>เกมในร้านค้า</h1>
-        <form>
+        <div>
           <Game_genre_box>
-            <label for="games-genre">แนวเกม</label>
-            <Select id="games-genre" name="games-genre" placeholder="แนวเกม">
+            <label htmlFor="games-genre">แพลทฟอร์ม</label>
+            <Select id="games-genre" name="games-genre" onChange={platformHandler}>
               {categories.map(category => 
-                (<option value={category.name}></option>))
+                (<option key={category._id} value={category._id}>{category.name}</option>))
               }
             </Select>
           </Game_genre_box>
-          <Button type="submit" class="search-btn">Search</Button>
-        </form>
+        </div>
       </Queries_box>
         <ProductsGrid products={products} />
       </Center>
@@ -91,9 +127,12 @@ export default function ProductsPage({products, categories}) {
 export async function getServerSideProps() {
   await mongooseConnect();
   const products = await Product.find({}, null, {sort:{'_id':-1}});
+  const categories = await Category.find({}, null, {sort:{'_id':-1}});
   return {
     props:{
       products: JSON.parse(JSON.stringify(products)),
+      categories: JSON.parse(JSON.stringify(categories))
     }
   };
 }
+

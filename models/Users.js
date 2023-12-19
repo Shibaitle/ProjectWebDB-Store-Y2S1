@@ -8,8 +8,6 @@ const UserSchema = new Schema({
   password: {type:String},
   description: String,
   balance: {type: Number, required: true},
-  category: {type:mongoose.Types.ObjectId, ref:'Category'},
-  properties: {type:Object},
 }, {
   timestamps: true,
 });

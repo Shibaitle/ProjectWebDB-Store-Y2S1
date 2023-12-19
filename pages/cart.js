@@ -199,15 +199,6 @@ export default function CartPage() {
   function lessOfThisProduct(id) {
     removeProduct(id);
   }
-  async function goToPayment() { // former post : we dont need location in orders
-    const response = await axios.post('/api/checkout', {
-      name,email,city,postalCode,streetAddress,country,
-      cartProducts,
-    });
-    if (response.data.url) {
-      window.location = response.data.url;
-    }
-  }
   let total = 0;
   for (const productId of cartProducts) {
     const price = products.find(p => p._id === productId)?.price || 0;

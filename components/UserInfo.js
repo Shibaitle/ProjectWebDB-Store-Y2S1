@@ -164,10 +164,6 @@ export default function UserInfo(/*userPic, userName, userEmail*/){
                             <label for="email-Change">อีเมล</label>
                             <input type="text" id="email-Change" name="email-Change" placeholder="อีเมลของฉัน"/>
                         </Change_box>
-                        <Change_box>
-                            <label for="tel-no-Change">เบอร์โทรศัพท์</label>
-                            <input type="text" id="tel-no-Change" name="tel-no-Change" placeholder="เบอร์โทรศัพท์ของฉัน"/>
-                        </Change_box>
                         <Submit_holder>
                             <input type="submit"/>
                         </Submit_holder>

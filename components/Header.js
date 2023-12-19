@@ -9,7 +9,7 @@ import CartIcon from "@/components/icons/CartIcon";
 
 
 const StyledHeader = styled.header`
-
+  
 `;
 
 const Logo = styled(Link)`

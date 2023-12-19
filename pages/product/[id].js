@@ -50,9 +50,11 @@ const H1box = styled.div``;
   margin: 2vh;
   display: flex;
   flex-direction: column;
-  padding: 2vh 0 0 3vw;
-  .H1box{
-    padding-top: 5vh;
+  border: 3px solid black;
+  border-radius: 20px;
+  background-color: white;
+  h1{
+    padding-left: 5vh;
     height: 15vh;
     width: 100%;
   }
@@ -63,6 +65,7 @@ const Product_interact = styled.div`
   height: 20vh;
   display: flex;
   padding-top: 10vh;
+  padding-left: 5vh;
 `;
 
 
@@ -70,13 +73,15 @@ const Prod_genre = styled.div`
   display: flex;
   height: 5vh;
   width: 100%;
+  padding-left: 5vh;
   *{
-    padding: 0 1vw 0 0;
+    padding: 0 1vw 5vh 0;
   }
 `;
 
 
 const Prod_description = styled.div`
+  padding-left: 5vh;
   height: 35vh;
   width: 97.5%;
   word-wrap: break-word;
@@ -177,6 +182,9 @@ export default function ProductPage({product}) {
                 </Product_interact>
                 <Prod_genre>
                   <h3>หมวดหมู่ : cat (เดี๋ยวหาวิธี Fetch category)</h3>
+                </Prod_genre>
+                <Prod_genre>
+                  <h3>แพลทฟอร์ม : Steam</h3>
                 </Prod_genre>
                 <Prod_description>{product.description}</Prod_description>
               </Product_info>

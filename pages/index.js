@@ -5,6 +5,7 @@ import {mongooseConnect} from "@/lib/mongoose";
 import NewProducts from "@/components/NewProducts";
 import Footer from "@/components/Footer";
 
+
 export default function HomePage({featuredProduct,newProducts}) {
   return (
     <div>
