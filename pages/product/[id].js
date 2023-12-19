@@ -11,6 +11,7 @@ import CartIcon from "@/components/icons/CartIcon";
 import {useContext} from "react";
 import {CartContext} from "@/components/CartContext";
 import Footer from "@/components/Footer"
+import { Platform } from "@/models/Platform";
 // import {Category} from "@/models/Category";
 
 const Section =styled.section `
@@ -158,7 +159,7 @@ const Prod_buy_options = styled.div`
 
 
 
-export default function ProductPage({product}) {
+export default function ProductPage({product, prodPlatform}) {
   const {addToCart} = useContext(CartContext)
   return (
     <>
@@ -181,10 +182,7 @@ export default function ProductPage({product}) {
                   </Prod_buy_options>
                 </Product_interact>
                 <Prod_genre>
-                  <h3>หมวดหมู่ : cat (เดี๋ยวหาวิธี Fetch category)</h3>
-                </Prod_genre>
-                <Prod_genre>
-                  <h3>แพลทฟอร์ม : Steam</h3>
+                  <h3>แพลทฟอร์ม : {prodPlatform.name}</h3>
                 </Prod_genre>
                 <Prod_description>{product.description}</Prod_description>
               </Product_info>
@@ -199,9 +197,11 @@ export async function getServerSideProps(context) {
   await mongooseConnect();
   const {id} = context.query;
   const product = await Product.findById(id);
+  const prodPlatform = await Platform.findById(product.platform);
   return {
     props: {
       product: JSON.parse(JSON.stringify(product)),
+      prodPlatform: JSON.parse(JSON.stringify(prodPlatform)),
     }
   }
 }
