@@ -4,10 +4,14 @@ import Center from "@/components/Center";
 import {useContext, useState} from "react";
 import {CartContext} from "@/components/CartContext";
 import BarsIcon from "@/components/icons/Bars";
+import ShopLogo from "@/components/icons/ShopLogo";
+import CartIcon from "@/components/icons/CartIcon";
+
 
 const StyledHeader = styled.header`
-  background-color: #222;
+  
 `;
+
 const Logo = styled(Link)`
   color:#fff;
   text-decoration:none;
@@ -16,7 +20,7 @@ const Logo = styled(Link)`
 `;
 const Wrapper = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   padding: 20px 0;
 `;
 const StyledNav = styled.nav`
@@ -32,16 +36,19 @@ const StyledNav = styled.nav`
   left: 0;
   right: 0;
   padding: 70px 20px 20px;
-  background-color: #222;
   @media screen and (min-width: 768px) {
     display: flex;
     position: static;
     padding: 0;
   }
 `;
+/*
+background-color: #222;
+*/
+
 const NavLink = styled(Link)`
   display: block;
-  color:#aaa;
+  color: black;
   text-decoration:none;
   padding: 10px 0;
   @media screen and (min-width: 768px) {
@@ -67,21 +74,21 @@ export default function Header() {
   const [mobileNavActive,setMobileNavActive] = useState(false);
   return (
     <StyledHeader>
-      <Center>
         <Wrapper>
-          <Logo href={'/'}>Ecommerce</Logo>
+          <Logo href={'/'}><ShopLogo /></Logo>
           <StyledNav mobileNavActive={mobileNavActive}>
-            <NavLink href={'/'}>Home</NavLink>
-            <NavLink href={'/products'}>All products</NavLink>
-            <NavLink href={'/categories'}>Categories</NavLink>
+            <NavLink href={'/products'}>Games</NavLink>
+            <NavLink href={'/categories'}>Platform</NavLink>
             <NavLink href={'/account'}>Account</NavLink>
-            <NavLink href={'/cart'}>Cart ({cartProducts.length})</NavLink>
+            <NavLink href={'/products'}>Login</NavLink>
+            <NavLink href={'/products'}>Sign up</NavLink>
+            <NavLink href={'/cart'}><CartIcon/> ({cartProducts.length})</NavLink>
+            
           </StyledNav>
           <NavButton onClick={() => setMobileNavActive(prev => !prev)}>
             <BarsIcon />
           </NavButton>
         </Wrapper>
-      </Center>
     </StyledHeader>
   );
 }

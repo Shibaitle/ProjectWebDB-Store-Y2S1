@@ -1,4 +1,5 @@
 import {createContext, useEffect, useState} from "react";
+import CartProduct from "./CartOrder";
 
 export const CartContext = createContext({});
 
@@ -16,7 +17,14 @@ export function CartContextProvider({children}) {
     }
   }, []);
   function addProduct(productId) {
+    if (!cartProducts.includes(productId)){
     setCartProducts(prev => [...prev,productId]);
+    }
+  }
+
+  function addToCart(productId){
+    addProduct(productId)
+    history.back();
   }
   function removeProduct(productId) {
     setCartProducts(prev => {
@@ -31,7 +39,7 @@ export function CartContextProvider({children}) {
     setCartProducts([]);
   }
   return (
-    <CartContext.Provider value={{cartProducts,setCartProducts,addProduct,removeProduct,clearCart}}>
+    <CartContext.Provider value={{cartProducts,setCartProducts,addProduct,addToCart,removeProduct,clearCart}}>
       {children}
     </CartContext.Provider>
   );

@@ -3,6 +3,8 @@ import Featured from "@/components/Featured";
 import {Product} from "@/models/Product";
 import {mongooseConnect} from "@/lib/mongoose";
 import NewProducts from "@/components/NewProducts";
+import Footer from "@/components/Footer";
+
 
 export default function HomePage({featuredProduct,newProducts}) {
   return (
@@ -10,12 +12,13 @@ export default function HomePage({featuredProduct,newProducts}) {
       <Header />
       <Featured product={featuredProduct} />
       <NewProducts products={newProducts} />
+      <Footer />
     </div>
   );
 }
 
 export async function getServerSideProps() {
-  const featuredProductId = '657eba0cc53a64a8566a5eb2';
+  const featuredProductId = '65808483d51636eb62bd2f54';
   await mongooseConnect();
   const featuredProduct = await Product.findById(featuredProductId);
   const newProducts = await Product.find({}, null, {sort: {'_id':-1}, limit:10});
