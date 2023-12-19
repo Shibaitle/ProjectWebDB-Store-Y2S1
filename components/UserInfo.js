@@ -48,6 +48,7 @@ const User_info =styled.div `
     height: 15vh;
 `;
 
+/* No picture need, obsolete
 const Prof_pic =styled.div `
     width: 45%;
     height: 100%;
@@ -62,10 +63,10 @@ const Prof_pic =styled.div `
         border-radius: 180px;
     }
 `;
-
+*/
 
 const Email_box =styled.div `
-    width: 55%;
+    width: 100%;
     height: 100%;
     justify-content: center;
     align-items: center;
@@ -139,9 +140,6 @@ export default function UserInfo(/*userPic, userName, userEmail*/){
                 <Option_flex>
                     <Option_box>
                         <User_info>
-                            <Prof_pic>
-                                <img src="https://www.wholesalenurseryco.com/cdn/shop/files/DandelionPlant_1_1_1.jpg?v=1697820552"/*{userPic}*/ alt=""></img>
-                            </Prof_pic>
                             <Email_box>
                                 <h2>บัญชีของฉัน</h2>
                                 <h2>Somying</h2>
@@ -150,13 +148,13 @@ export default function UserInfo(/*userPic, userName, userEmail*/){
                         </User_info>
                         <a href="history">รายการชำระเงิน</a>
                         <a href="/cart">ตะกร้า</a>
-                        <a href="payment">ล็อกเอาต์</a>
+                        <a href="#">ล็อกเอาต์</a>
                         
                     </Option_box>
                 </Option_flex>
             <Display_flex>
                 <Display_box>
-                    <h1>ข้อมูลส่วนตัว</h1>
+                    <h1>เปลี่ยนข้อมูลส่วนตัว</h1>
                     <Form>
                         <Change_box>
                             <label for="user-change">ชื่อ</label>

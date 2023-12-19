@@ -84,9 +84,6 @@ export default function UserInfo(){
             <Profile_flex>
                 <Opt_Flex>
                     <option_box>
-                        <prof_pic>
-                            <img src="https://cdn.shopify.com/s/files/1/0309/2113/0119/files/C2C2CFF8-55E4-4A98-9402-D904B79D26E6_480x480.jpg?v=1621947904" alt=""></img>
-                        </prof_pic>
                         <email_box>
                             <h2>บัญชีของฉัน</h2>
                             <h2>Placeobo</h2>

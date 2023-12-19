@@ -78,6 +78,7 @@ export default function Featured({product}) {
               </ButtonsWrapper>
             </div>
           </Column>
+    
           <Column>
           </Column>
         </ColumnsWrapper>

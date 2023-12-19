@@ -8,6 +8,7 @@ import axios from "axios";
 import Table from "@/components/Table";
 import Input from "@/components/Input";
 import ButtonLink from "@/components/ButtonLink";
+import Footer from "@/components/Footer"
 
 const ColumnsWrapper = styled.div`
   display: grid;
@@ -47,6 +48,7 @@ const List_order_box = styled.div`
     justify-content: center;
     align-items: center;
     text-align: center;
+    h1{font-size: 1.75vw;}
 `;
 
 const List_order_info = styled.div`
@@ -59,14 +61,29 @@ const List_order_info = styled.div`
     flex-direction: column;
 `;
 
+const Indicate_Header = styled.div`
+    width: 100%;
+    display: flex;
+    padding: 5vh 0 2vh 0;
+    h1{
+    padding-left: 1vw;}
+    *{
+      width: 24%;
+    }
+`;
 const Useroptions = styled.div`
     width: 70%;
     height: 5vh;
     margin-bottom: 5vh;
     display: flex;
     justify-content: space-between;
-    button{
+    button, a{
         width: auto;
+        color: black;
+        font-weight: bold;
+        font-size: 1vw;
+        border-radius: 20px;
+        background-color: white;
     }
     `;
 
@@ -79,7 +96,10 @@ const Txn_box = styled.div`
     justify-content: space-between;
     padding-left: 2vw;
     align-items: center;
-    button{
+    *{
+      font-size: 1.25vw;
+    }
+    a{
         width: auto;
         display: flex;
         justify-content: center;
@@ -87,37 +107,34 @@ const Txn_box = styled.div`
         text-align: center;
         height: 5vh;
         margin-left:1vw;
+        margin-right:1vw;
         border-radius: 20px;
         background-color: rgb(69, 255, 84);
     }
     `;
 
-const Indicate_Header = styled.div`
-    width: 100%;
-    display: flex;
-    padding: 5vh 0 2vh 3vw;
-    h1{
-    padding-right: 2vw;}
-    *{
-      width: 24%;
-    }
-`;
+
 
 const Product_order = styled.div`
     width: 100%;
     height: 15vh;
     margin-bottom: 5vh;
-    background-color: gray;
+    background-color: rgb(224, 222, 222);
     display: flex;
     align-items: center;
     padding:1vh;
     *{
         width 24%;
         padding-left:1vw;
+        font-size: 1.2vw;
     }
+    .imgbox{
+      height : 100%;
+    }
+
     img{
-        height: 15vh;
-        max-width: 25%;
+        height: 100%;
+        width: 100%;
         object-fit: contain;
     }
 `;
@@ -197,6 +214,14 @@ export default function CartPage() {
     total += price;
   }
 
+  function removeAll(){
+    if (confirm("Are you sure you want to remove all items?") == true){
+      for (const productId of cartProducts) {
+        removeProduct(productId);
+      }
+    }
+  }
+
   if (isSuccess) {
     return (
       <>
@@ -213,59 +238,64 @@ export default function CartPage() {
     );
   }
   return (
-    <Section>
-            <List_order_box>
-              <h1>รถของคุณ</h1>
-              {!cartProducts?.length && (
-                <EmptyBox>
-                  <div>Your cart is empty</div>
-                  <ButtonLink href="/">กลับสู่หน้าเริ่มต้น</ButtonLink>
-                </EmptyBox>
-              )}
-              {products?.length > 0 && (
-                  <List_Box>
-                      <Indicate_Header>
-                          <h1>ภาพสินค้า</h1>
-                          <h1>ชื่อสินค้า</h1>
-                          <h1>ราคา</h1>
-                          <h1>จำนวน</h1>
-                      </Indicate_Header>
-                      <List_order_info>
-                          {products.map(product => (
-                            <Product_order>
-                              
-                                <img src={product.images[0]} alt=""/>
-                                
-                                <p>{product.title}</p>
-                                <p>{cartProducts.filter(id => id === product._id).length * product.price} บาท</p>
-                                <AddRemove>
-                                  <Button onClick={() => lessOfThisProduct(product._id)}>-</Button>
-                                  <QuantityLabel>
-                                    {cartProducts.filter(id => id === product._id).length}
-                                  </QuantityLabel>
-                                  <Button
-                                    onClick={() => moreOfThisProduct(product._id)}>+</Button>
-                                </AddRemove>
-                              
-                                
-                              </Product_order>
-                          
-                          ))}
-                      </List_order_info>
-                
-                <Useroptions>
-                  <ButtonLink href="/">เลือกดูสินค้าต่อ</ButtonLink>
-                  <Button>Remove all items</Button>
-                </Useroptions>
-                <Txn_box>
-                    <h1>รวม</h1>
-                    <p>500.00 THB</p>
-                    <Button>ชำระเงิน</Button>
-                </Txn_box>
-                </List_Box>
-              )}
-            </List_order_box>
-        </Section>
+    <>
+      <Header />
+        <Section>
+              <List_order_box>
+                <h1>รถของคุณ</h1>
+                {!cartProducts?.length && (
+                  <EmptyBox>
+                    <div>Your cart is empty</div>
+                    <ButtonLink href="/">กลับสู่หน้าเริ่มต้น</ButtonLink>
+                  </EmptyBox>
+                )}
+                {products?.length > 0 && (
+                    <List_Box>
+                        <Indicate_Header>
+                            <h1>ภาพสินค้า</h1>
+                            <h1>ชื่อสินค้า</h1>
+                            <h1>ราคา</h1>
+                            <h1>จำนวน</h1>
+                            <h1>แพลทฟอร์ม</h1>
+                        </Indicate_Header>
+                        <List_order_info>
+                            {products.map(product => (
+                              <Product_order>
+                                  <div className="imgbox">
+                                  <img src={product.images[0]} alt=""/>
+                                  </div>
+                                  <strong>{product.title}</strong>
+                                  <strong>{cartProducts.filter(id => id === product._id).length * product.price} บาท</strong>
+                                  <AddRemove>
+                                    <Button onClick={() => lessOfThisProduct(product._id)}>-</Button>
+                                    <QuantityLabel>
+                                      {cartProducts.filter(id => id === product._id).length}
+                                    </QuantityLabel>
+                                    <Button
+                                      onClick={() => moreOfThisProduct(product._id)}>+</Button>
+                                  </AddRemove>
+                                  <strong>Steam</strong>
+                                  
+                                </Product_order>
+                            
+                            ))}
+                        </List_order_info>
+                  
+                  <Useroptions>
+                    <ButtonLink href="/">เลือกดูสินค้าต่อ</ButtonLink>
+                    <Button onClick={() => removeAll()}>Remove all items</Button>
+                  </Useroptions>
+                  <Txn_box>
+                      <h1>รวม</h1>
+                      <p>{total.toFixed(2)} บาท</p>
+                      <ButtonLink href="/payment">ชำระเงิน</ButtonLink>
+                  </Txn_box>
+                  </List_Box>
+                )}
+              </List_order_box>
+          </Section>
+          <Footer/>
+        </>
   );
 }
 
@@ -410,7 +440,47 @@ export default function CartPage() {
                 </Table>
               )}
             </Box>
-            
+            {!!cartProducts?.length && (
+            <Box>
+              <h2>Order information</h2>
+              <Input type="text"
+                     placeholder="Name"
+                     value={name}
+                     name="name"
+                     onChange={ev => setName(ev.target.value)} />
+              <Input type="text"
+                     placeholder="Email"
+                     value={email}
+                     name="email"
+                     onChange={ev => setEmail(ev.target.value)}/>
+              <CityHolder>
+                <Input type="text"
+                       placeholder="City"
+                       value={city}
+                       name="city"
+                       onChange={ev => setCity(ev.target.value)}/>
+                <Input type="text"
+                       placeholder="Postal Code"
+                       value={postalCode}
+                       name="postalCode"
+                       onChange={ev => setPostalCode(ev.target.value)}/>
+              </CityHolder>
+              <Input type="text"
+                     placeholder="Street Address"
+                     value={streetAddress}
+                     name="streetAddress"
+                     onChange={ev => setStreetAddress(ev.target.value)}/>
+              <Input type="text"
+                     placeholder="Country"
+                     value={country}
+                     name="country"
+                     onChange={ev => setCountry(ev.target.value)}/>
+              <Button black block
+                      onClick={goToPayment}>
+                Continue to payment
+              </Button>
+            </Box>
+          )}
           </ColumnsWrapper>
         </Center>
       </>

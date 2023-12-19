@@ -10,6 +10,7 @@ import Button from "@/components/Button";
 import CartIcon from "@/components/icons/CartIcon";
 import {useContext} from "react";
 import {CartContext} from "@/components/CartContext";
+import Footer from "@/components/Footer"
 // import {Category} from "@/models/Category";
 
 const Section =styled.section `
@@ -181,6 +182,7 @@ export default function ProductPage({product}) {
               </Product_info>
             </Product_component>
       </Section>
+      <Footer/>
     </>
   );
 }
@@ -195,10 +197,6 @@ export async function getServerSideProps(context) {
     }
   }
 }
-
-
-
-
 
 
 /*

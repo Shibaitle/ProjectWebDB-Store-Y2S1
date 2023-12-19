@@ -9,6 +9,16 @@ const Title = styled.h2`
 `;
 
 export default function NewProducts({products}) {
+
+  // Pop until only 4 new elements (games) to be displayed
+  let render = products?.length;
+  while (render > 0){
+    if (render > 4){
+      products.pop();
+    }
+    render--
+  }
+
   return (
     <Center>
       <Title>New Arrivals</Title>
@@ -16,3 +26,16 @@ export default function NewProducts({products}) {
     </Center>
   );
 }
+
+
+
+  /*
+  let render = products?.length;
+  let productTable = ""
+  products.map(product =>{
+    render-=1;
+    if (render < 4)(
+      productTable += "<ProductBox key={" + product._id + "} {..." + product + "}/>  ")
+      render--
+    })
+    */

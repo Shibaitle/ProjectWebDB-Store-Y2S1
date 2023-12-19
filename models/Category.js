@@ -1,11 +1,9 @@
-/*
-import mongoose, {model, Schema, models} from "mongoose";
+import mongoose, {model, models, Schema} from "mongoose";
 
-const ProductSchema = new Schema({
-  name: {type:String, required:true},
-  description: String,
-  property: {type: Array, required: true},
+const CategorySchema = new Schema({
+  name: {type:String,required:true},
+  parent: {type:mongoose.Types.ObjectId, ref:'Category'},
+  properties: [{type:Object}]
 });
 
-export const Category = models.Category || model('Category', ProductSchema);
-*/
+export const Category = models?.Category || model('Category', CategorySchema);
