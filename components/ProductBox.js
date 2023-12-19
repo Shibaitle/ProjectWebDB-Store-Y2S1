@@ -2,7 +2,7 @@ import styled from "styled-components";
 import Button from "@/components/Button";
 import CartIcon from "@/components/icons/CartIcon";
 import Link from "next/link";
-import {useContext} from "react";
+import { useContext, useEffect, useState } from "react";
 import {CartContext} from "@/components/CartContext";
 
 const ProductWrapper = styled.div`
@@ -58,9 +58,21 @@ const Price = styled.div`
   }
 `;
 
-export default function ProductBox({_id,title,description,price,images}) {
+export default function ProductBox({ _id, title, name, price, images, categoryId }) {
   const {addProduct} = useContext(CartContext);
+  const [category, setCategory] = useState(null);
+
+  /*
+  useEffect(() => {
+    // Fetch category details based on categoryId
+    fetchProductDetails(categoryId) // Update this function
+      .then((categoryData) => setCategory(categoryData))
+      .catch((error) => console.error("Error fetching category details", error));
+  }, [categoryId]);
+  */
+
   const url = '/product/'+_id;
+  
   return (
     <ProductWrapper>
       <WhiteBox href={url}>
@@ -72,12 +84,13 @@ export default function ProductBox({_id,title,description,price,images}) {
         <Title href={url}>{title}</Title>
         <PriceRow>
           <Price>
-            ${price}
+            {price} THB
           </Price>
           <Button block onClick={() => addProduct(_id)} primary outline>
             <CartIcon />
           </Button>
         </PriceRow>
+        {category && <p>Category: {category.name}</p>}
       </ProductInfoBox>
     </ProductWrapper>
   );

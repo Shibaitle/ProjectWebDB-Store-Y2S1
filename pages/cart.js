@@ -7,6 +7,7 @@ import {CartContext} from "@/components/CartContext";
 import axios from "axios";
 import Table from "@/components/Table";
 import Input from "@/components/Input";
+import Footer from "@/components/Footer";
 
 const ColumnsWrapper = styled.div`
   display: grid;
@@ -121,12 +122,10 @@ export default function CartPage() {
       <>
         <Header />
         <Center>
-          <ColumnsWrapper>
             <Box>
               <h1>Thanks for your order!</h1>
               <p>We will email you when your order will be sent.</p>
             </Box>
-          </ColumnsWrapper>
         </Center>
       </>
     );
@@ -135,7 +134,85 @@ export default function CartPage() {
     <>
       <Header />
       <Center>
-        <ColumnsWrapper>
+          <Box>
+            <h2>Cart</h2>
+            {!cartProducts?.length && (
+              <div>Your cart is empty</div>
+            )}
+            {products?.length > 0 && (
+              <Table>
+                <thead>
+                  <tr>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {products.map(product => (
+                    <tr key={product._id}>
+                      <ProductInfoCell>
+                        <ProductImageBox>
+                          <img src={product.images[0]} alt=""/>
+                        </ProductImageBox>
+                        {product.title}
+                      </ProductInfoCell>
+                      <td>
+                        <Button
+                          onClick={() => lessOfThisProduct(product._id)}>-</Button>
+                        <QuantityLabel>
+                          {cartProducts.filter(id => id === product._id).length}
+                        </QuantityLabel>
+                        <Button
+                          onClick={() => moreOfThisProduct(product._id)}>+</Button>
+                      </td>
+                      <td>
+                        ${cartProducts.filter(id => id === product._id).length * product.price}
+                      </td>
+                    </tr>
+                  ))}
+                  <tr>
+                    <td></td>
+                    <td></td>
+                    <td>${total}</td>
+                  </tr>
+                </tbody>
+              </Table>
+            )}
+          </Box>
+          {!!cartProducts?.length && (
+            <Box>
+              <h2>Order information</h2>
+              <Button black block
+                      onClick={goToPayment}>
+                Continue to payment
+              </Button>
+            </Box>
+          )}
+      </Center>
+      <Footer />
+    </>
+  );
+}
+
+/*  
+if (isSuccess) {
+    return (
+      <>
+        <Header />
+        <Center>
+            <Box>
+              <h1>Thanks for your order!</h1>
+              <p>We will email you when your order will be sent.</p>
+            </Box>
+        </Center>
+      </>
+    );
+  }
+  return (
+    <>
+      <Header />
+      <Center>
           <Box>
             <h2>Cart</h2>
             {!cartProducts?.length && (
@@ -223,8 +300,9 @@ export default function CartPage() {
               </Button>
             </Box>
           )}
-        </ColumnsWrapper>
       </Center>
+      <Footer />
     </>
   );
 }
+*/
