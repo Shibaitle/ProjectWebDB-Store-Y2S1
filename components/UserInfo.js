@@ -142,8 +142,8 @@ export default function UserInfo(/*userPic, userName, userEmail*/){
                         <User_info>
                             <Email_box>
                                 <h2>บัญชีของฉัน</h2>
-                                <h2>Somying</h2>
-                                <h2>Somyes@gmail.com</h2>
+                                <h2>SupaKarl</h2>
+                                <h2>kunbenorsortor@gmail.com</h2>
                             </Email_box>
                         </User_info>
                         <a href="history">รายการชำระเงิน</a>

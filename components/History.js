@@ -9,6 +9,7 @@ import Table from "@/components/Table";
 import Input from "@/components/Input";
 import ButtonLink from "@/components/ButtonLink";
 import Footer from "@/components/Footer"
+import { Order } from "@/models/Order";
 
 const Section =styled.section `
     height: auto;
@@ -142,8 +143,8 @@ export default function History(){
                                           {cartProducts.filter(id => id === product._id).length}
                                         </QuantityLabel>
                                         <strong>Steam</strong>
-                                        <strong>12/12/2023</strong>
-                                        <strong>HaHaha</strong>
+                                        <strong>{(new Date(Order.createdAt)).toLocaleString()}</strong>
+                                        <strong>{(product._id)}</strong>
                                       
                                     </Product_order>
                                 
