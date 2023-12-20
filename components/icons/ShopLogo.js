@@ -6,7 +6,7 @@ export default function ShopLogo({className="w-6 h-6"}) {
         <div>
             <Image
             src={logopic}
-            width={300}
+            width={200}
             height={25}
             alt=""
             />
