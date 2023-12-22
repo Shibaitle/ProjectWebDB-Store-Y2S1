@@ -12,4 +12,4 @@ const UserSchema = new Schema({
   timestamps: true,
 });
 
-export const Users = models.Users || model('Users2', UserSchema);
+export const Users = models.Users || model('Users', User);

@@ -9,7 +9,7 @@ import Footer from "@/components/Footer"
 import Input from "@/components/Input";
 import Button from "@/components/Button";
 import { Platform } from "@/models/Platform";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
 
@@ -41,7 +41,9 @@ const Queries_box = styled.div`
       height: 5vh;
       display: flex;
       align-items: center;
-      background-color: rgb(215, 248, 248);
+      background-color: gray;
+      margin-left 25px;
+      border-radius:100px;
     }
   }
 `;
@@ -71,52 +73,71 @@ form button, a button{
 }
 */
 
-export default function CategoryPage({products, platforms}) {
-
+export default function CategoryPage({ products, platforms }) {
   const [platform, setPlatform] = useState("");
+  const [filteredProducts, setFilteredProducts] = useState([]);
 
-  const searchCategory = async (e) =>{
-    /*
-    if (platform !== "All"){
-      const newProduct = await Product.find({category, platform}, null, {sort:{'_id':-1}});
-      newProduct: JSON.parse(JSON.stringify(newProduct));
+  const searchCategory = async () => {
+    if (platform !== "") {
+      // Filter products based on the selected platform
+      const filteredProducts = products.filter((product) => product.platform === platform);
+
+      // Log the filtered products for debugging
+      console.log("Filtered Products:", filteredProducts);
+
+      // Set the filtered products in the state
+      setFilteredProducts(filteredProducts);
+    } else {
+      // If no platform is selected, show all products
+      setFilteredProducts(products);
     }
-    
-    Can't function as designed in time, pause to be sure another parts done in time
-    */ 
-  }
+  };
 
+  useEffect(() => {
+    // Initial rendering with all products
+    setFilteredProducts(products);
+  }, [products]);
 
   return (
     <>
       <Header />
       <Center>
         <Queries_box>
-        <h1>เกมในร้านค้า</h1>
-        <div>
-          <Game_genre_box>
-            <label htmlFor="games-genre">Platform</label>
-            <Select id="games-genre" name="games-genre">
-              {platforms.map(platform => 
-                (<option key={platform._id} value={platform._id}>{platform.name}</option>))
-              }
-            </Select> 
-          </Game_genre_box>
-        </div>
-      </Queries_box>
-        <ProductsGrid products={products} />
+          <h1>เกมในร้านค้า</h1>
+          <div>
+            <Game_genre_box>
+              <label htmlFor="games-genre">Platform</label>
+              <Select
+                id="games-genre"
+                name="games-genre"
+                value={platform}
+                onChange={(e) => setPlatform(e.target.value)}
+              >
+                <option value="">All</option>
+                {platforms.map((platformOption) => (
+                  <option key={platformOption._id} value={platformOption._id}>
+                    {platformOption.name}
+                  </option>
+                ))}
+              </Select>
+              <Button onClick={searchCategory}>Search</Button>
+            </Game_genre_box>
+          </div>
+        </Queries_box>
+        {/* Pass the filtered products to ProductsGrid */}
+        <ProductsGrid products={filteredProducts} />
       </Center>
-      <Footer/>
+      <Footer />
     </>
   );
 }
 
 export async function getServerSideProps() {
   await mongooseConnect();
-  const products = await Product.find({}, null, {sort:{'_id':-1}});
-  const platforms = await Platform.find({}, null, {sort:{'_id':-1}});
+  const products = await Product.find({}, null, { sort: { '_id': -1 } });
+  const platforms = await Platform.find({}, null, { sort: { '_id': -1 } });
   return {
-    props:{
+    props: {
       products: JSON.parse(JSON.stringify(products)),
       platforms: JSON.parse(JSON.stringify(platforms))
     }

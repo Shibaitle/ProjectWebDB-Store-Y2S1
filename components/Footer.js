@@ -3,8 +3,10 @@ import styled from "styled-components";
 import Link from "next/link";
 
 const StyledFooter = styled.footer`
-  background-color: #f0f0f0; /* Add your preferred background color */
+  background-color: #B6BBC4; /* Black background color */
+  color: black; /* White text color */
   width: 100%;
+  margin-top: 100px; /* Adjust the margin-top as needed */
 `;
 
 const Wrapper = styled.div`

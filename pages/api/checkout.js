@@ -22,7 +22,7 @@ export default async function handler(req,res) {
     if (quantity > 0 && productInfo) {
       line_items.push({
           currency: 'Baht',
-          product_data: productInfo.title,
+          product_data: {name:productInfo.title},
           unit_amount: productInfo.price,
       });
     }

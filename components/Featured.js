@@ -82,6 +82,7 @@ export default function Featured({product}) {
           <Column>
           </Column>
         </ColumnsWrapper>
+        
       </Center>
 
     </Bg>

@@ -134,14 +134,19 @@ export default function Payment(){
       if (response.data.url) {
         window.location = response.data.url;
       }
-      clearCart();
-      alert("Transaction successful")
+      removeAll();
       
     }
     let total = 0;
     for (const productId of cartProducts) {
       const price = products.find(p => p._id === productId)?.price || 0;
       total += price;
+    }
+
+    function removeAll(){
+        for (const productId of cartProducts) {
+          removeProduct(productId);
+        }
     }
 
     function goBack(){
@@ -169,9 +174,7 @@ export default function Payment(){
                             </Info_box>
                             <Option_Box>
                                 <Cancel_btn type="submit" onClick={() => goBack()}>ยกเลิก</Cancel_btn>
-                                <ButtonLink href="/">
-                                  <Confirm_btn type="submit" onClick={goToPayment} >ยืนยัน</Confirm_btn>
-                                </ButtonLink>
+                                <Confirm_btn type="submit" onClick={goToPayment}>ยืนยัน</Confirm_btn>
                             </Option_Box>
                         </Txn_info>
                     </Txn_box>

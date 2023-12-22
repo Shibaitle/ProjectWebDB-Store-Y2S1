@@ -197,7 +197,7 @@ export default function ProductPage({product, prodPlatform}) {
                 <Price>{product.price} THB</Price>
               </div>
               <div>
-                <Button primary onClick={() => addProduct(product._id)}>
+                <Button primary onClick={() => addToCart(product._id)}>
                   <CartIcon />เพิ่มขึ้นรถเข็น
                 </Button>
               </div>

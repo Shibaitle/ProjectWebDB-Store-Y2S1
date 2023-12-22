@@ -16,9 +16,7 @@ export function CartContextProvider({children}) {
     }
   }, []);
   function addProduct(productId) {
-    if (!cartProducts.includes(productId)){
     setCartProducts(prev => [...prev,productId]);
-    }
   }
 
   function addToCart(productId){

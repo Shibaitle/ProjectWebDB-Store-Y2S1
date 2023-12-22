@@ -1,10 +1,10 @@
 import {model, models, Schema} from "mongoose";
 
 const OrderSchema = new Schema({
-  line_items:{type:Object},
-  name:{type:String},
-  email:{type:String},
-  paid:{type:Boolean},
+  line_items:Object,
+  name:String,
+  email:String,
+  paid:Boolean,
 }, {
   timestamps: true,
 });
