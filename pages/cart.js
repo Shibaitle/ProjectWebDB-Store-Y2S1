@@ -1,20 +1,21 @@
+/* eslint-disable @next/next/no-img-element */
 import Header from "@/components/Header";
 import styled from "styled-components";
 import Center from "@/components/Center";
 import Button from "@/components/Button";
-import {useContext, useEffect, useState} from "react";
-import {CartContext} from "@/components/CartContext";
+import { useContext, useEffect, useState } from "react";
+import { CartContext } from "@/components/CartContext";
 import axios from "axios";
 import Table from "@/components/Table";
 import Input from "@/components/Input";
 import ButtonLink from "@/components/ButtonLink";
-import Footer from "@/components/Footer"
+import Footer from "@/components/Footer";
 
 const ColumnsWrapper = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   @media screen and (min-width: 768px) {
-    grid-template-columns: 1.2fr .8fr;
+    grid-template-columns: 1.2fr 0.8fr;
   }
   gap: 40px;
   margin-top: 40px;
@@ -35,85 +36,87 @@ const QuantityLabel = styled.span`
   }
 `;
 
-const Section =styled.section `
-    min-width:90%;
-    height: auto;
+const Section = styled.section`
+  min-width: 90%;
+  height: auto;
 `;
 
 const List_order_box = styled.div`
-    display: flex;
-    height: 100%;
-    padding:2%;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    h1{font-size: 1.75vw;}
+  display: flex;
+  height: 100%;
+  padding: 2%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  h1 {
+    font-size: 1.75vw;
+  }
 `;
 
 const List_order_info = styled.div`
-    padding-top: 5vh;
-    width: 100%;
-    height: auto;
-    display: flex;
-    text-align: center;
-    align-items: center;
-    flex-direction: column;
+  padding-top: 5vh;
+  width: 100%;
+  height: auto;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  flex-direction: column;
 `;
 
 const Indicate_Header = styled.div`
-    width: 100%;
-    display: flex;
-    padding: 5vh 0 2vh 0;
-    h1{
-    padding-left: 1vw;}
-    *{
-      width: 24%;
-    }
+  width: 100%;
+  display: flex;
+  padding: 5vh 0 2vh 0;
+  h1 {
+    padding-left: 1vw;
+  }
+  * {
+    width: 24%;
+  }
 `;
 const Useroptions = styled.div`
-    width: 70%;
-    height: 5vh;
-    margin-bottom: 5vh;
-    display: flex;
-    justify-content: space-between;
-    button, a{
-        width: auto;
-        color: black;
-        font-weight: bold;
-        font-size: 1vw;
-        border-radius: 20px;
-        background-color: white;
-    }
-    `;
+  width: 70%;
+  height: 5vh;
+  margin-bottom: 5vh;
+  display: flex;
+  justify-content: space-between;
+  button,
+  a {
+    width: auto;
+    color: black;
+    font-weight: bold;
+    font-size: 1vw;
+    border-radius: 20px;
+    background-color: white;
+  }
+`;
 
 const Txn_box = styled.div`
-    width: 70%;
-    height: 10vh;
-    margin-bottom: 5vh;
+  width: 70%;
+  height: 10vh;
+  margin-bottom: 5vh;
+  display: flex;
+  background-color: rgb(192, 190, 190);
+  justify-content: space-between;
+  padding-left: 2vw;
+  align-items: center;
+  * {
+    font-size: 1.25vw;
+  }
+  a {
+    width: auto;
     display: flex;
-    background-color: rgb(192, 190, 190);
-    justify-content: space-between;
-    padding-left: 2vw;
+    justify-content: center;
     align-items: center;
-    *{
-      font-size: 1.25vw;
-    }
-    a{
-        width: auto;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        height: 5vh;
-        margin-left:1vw;
-        margin-right:1vw;
-        border-radius: 20px;
-        background-color: rgb(69, 255, 84);
-    }
-    `;
-
-
+    text-align: center;
+    height: 5vh;
+    margin-left: 1vw;
+    margin-right: 1vw;
+    border-radius: 20px;
+    background-color: rgb(69, 255, 84);
+  }
+`;
 
 const Product_order = styled.div`
     width: 100%;
@@ -140,31 +143,28 @@ const Product_order = styled.div`
 `;
 
 const List_Box = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width:90%
-`
-
-const RemoveBox = styled.div``
-  ;
-
-
-const EmptyBox = styled.div`
-    height: 50vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    Button{
-      font-size: 5vw;
-    }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 90%;
 `;
 
+const RemoveBox = styled.div``;
+const EmptyBox = styled.div`
+  height: 50vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  Button {
+    font-size: 5vw;
+  }
+`;
 
 export default function CartPage() {
-  const {cartProducts,addProduct,removeProduct,clearCart} = useContext(CartContext);
-  const [products,setProducts] = useState([]);
+  const { cartProducts, addProduct, removeProduct, clearCart } =
+    useContext(CartContext);
+  const [products, setProducts] = useState([]);
   /*
   const [name,setName] = useState('');
   const [email,setEmail] = useState('');
@@ -173,26 +173,25 @@ export default function CartPage() {
   const [streetAddress,setStreetAddress] = useState('');
   const [country,setCountry] = useState('');
   */
-  const [isSuccess,setIsSuccess] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
   useEffect(() => {
     if (cartProducts.length > 0) {
-      axios.post('/api/cart', {ids:cartProducts})
-        .then(response => {
-          setProducts(response.data);
-        })
+      axios.post("/api/cart", { ids: cartProducts }).then((response) => {
+        setProducts(response.data);
+      });
     } else {
       setProducts([]);
     }
   }, [cartProducts]);
   useEffect(() => {
-    if (typeof window === 'undefined') {
+    if (typeof window === "undefined") {
       return;
     }
-    if (window?.location.href.includes('success')) {
+    if (window?.location.href.includes("success")) {
       setIsSuccess(true);
       clearCart();
     }
-  }, []);
+  }, [clearCart]);
   function moreOfThisProduct(id) {
     addProduct(id);
   }
@@ -201,15 +200,13 @@ export default function CartPage() {
   }
   let total = 0;
   for (const productId of cartProducts) {
-    const price = products.find(p => p._id === productId)?.price || 0;
+    const price = products.find((p) => p._id === productId)?.price || 0;
     total += price;
   }
 
-  function removeAll(){
-    if (confirm("Are you sure you want to remove all items?") == true){
-      for (const productId of cartProducts) {
-        removeProduct(productId);
-      }
+  function removeAll() {
+    if (confirm("Are you sure you want to remove all items?") == true) {
+      clearCart();
     }
   }
 
@@ -231,61 +228,63 @@ export default function CartPage() {
   return (
     <>
       <Header />
-        <Section>
-              <List_order_box>
-                <h1>รถของคุณ</h1>
-                {!cartProducts?.length && (
-                  <EmptyBox>
-                    <div>Your cart is empty</div>
-                    <ButtonLink href="/">กลับสู่หน้าเริ่มต้น</ButtonLink>
-                  </EmptyBox>
-                )}
-                {products?.length > 0 && (
-                    <List_Box>
-                        <Indicate_Header>
-                            <h1>ภาพสินค้า</h1>
-                            <h1>ชื่อสินค้า</h1>
-                            <h1>ราคา</h1>
-                            <h1>จำนวน</h1>
-                            <h1>แพลทฟอร์ม</h1>
-                        </Indicate_Header>
-                        <List_order_info>
-                            {products.map(product => (
-                              <Product_order>
-                                  <div className="imgbox">
-                                  <img src={product.images[0]} alt=""/>
-                                  </div>
-                                  <strong>{product.title}</strong>
-                                  <strong>{cartProducts.filter(id => id === product._id).length * product.price} บาท</strong>
-                                  <RemoveBox>
-                                    <QuantityLabel>
-                                      {cartProducts.filter(id => id === product._id).length}
-                                    </QuantityLabel>
-                                    <Button
-                                      onClick={() => lessOfThisProduct(product._id)}>+</Button>
-                                  </RemoveBox>
-                                  <strong>{product.name}</strong>
-                                  
-                                </Product_order>
-                            
-                            ))}
-                        </List_order_info>
-                  
-                  <Useroptions>
-                    <ButtonLink href="/">เลือกดูสินค้าต่อ</ButtonLink>
-                    <Button onClick={() => removeAll()}>Remove all items</Button>
-                  </Useroptions>
-                  <Txn_box>
-                      <h1>รวม</h1>
-                      <p>{total.toFixed(2)} บาท</p>
-                      <ButtonLink href="/payment">ชำระเงิน</ButtonLink>
-                  </Txn_box>
-                  </List_Box>
-                )}
-              </List_order_box>
-          </Section>
-          <Footer/>
-        </>
+      <Section>
+        <List_order_box>
+          <h1>รถของคุณ</h1>
+          {!cartProducts?.length && (
+            <EmptyBox>
+              <div>Your cart is empty</div>
+              <ButtonLink href="/">กลับสู่หน้าเริ่มต้น</ButtonLink>
+            </EmptyBox>
+          )}
+          {products?.length > 0 && (
+            <List_Box>
+              <Indicate_Header>
+                <h1>ภาพสินค้า</h1>
+                <h1>ชื่อสินค้า</h1>
+                <h1>ราคา</h1>
+                <h1></h1>
+                <h1>แพลทฟอร์ม</h1>
+              </Indicate_Header>
+              <List_order_info>
+                {products.map((product) => (
+                  <Product_order key={product._id}>
+                    <div className="imgbox">
+                      <img src={product.images[0]} alt="" />
+                    </div>
+                    <strong>{product.title}</strong>
+                    <strong>
+                      {cartProducts.filter((id) => id === product._id).length *
+                        product.price}
+                      บาท
+                    </strong>
+                    <RemoveBox>
+                      <Button onClick={() => lessOfThisProduct(product._id)}>
+                        ลบ
+                      </Button>
+                    </RemoveBox>
+                    <strong>
+                      Steam
+                    </strong>
+                  </Product_order>
+                ))}
+              </List_order_info>
+
+              <Useroptions>
+                <ButtonLink href="/">เลือกดูสินค้าต่อ</ButtonLink>
+                <Button onClick={() => removeAll()}>Remove all items</Button>
+              </Useroptions>
+              <Txn_box>
+                <h1>รวม</h1>
+                <p>{total.toFixed(2)} บาท</p>
+                <ButtonLink href="/payment">ชำระเงิน</ButtonLink>
+              </Txn_box>
+            </List_Box>
+          )}
+        </List_order_box>
+      </Section>
+      <Footer />
+    </>
   );
 }
 
@@ -311,7 +310,6 @@ export default function CartPage() {
                           </Product_order>
                         ))}
 */
-
 
 /* ของเก่า
 export default function CartPage() {

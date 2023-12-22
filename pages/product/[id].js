@@ -116,6 +116,24 @@ const Prod_buy_options = styled.div`
   }
   `;
 
+  const ColWrapper = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  @media screen and (min-width: 768px) {
+    grid-template-columns: .8fr 1.2fr;
+  }
+  gap: 40px;
+  margin: 40px 0;
+`;
+
+
+const PriceRow = styled.div`
+  display: flex;
+  gap: 20px;
+  align-items: center;
+`;
+
+
 /*
 .add-decrease{
   display: flex;
@@ -157,38 +175,36 @@ const Prod_buy_options = styled.div`
 
 */
 
-
-
 export default function ProductPage({product, prodPlatform}) {
   const {addToCart} = useContext(CartContext)
   return (
     <>
       <Header />
-      <Section>
-        <Product_component>
-              <Product_pic>
-                <ProductImages images={product.images} />
-              </Product_pic>
-              <Product_info>
-                <Title>{product.title}</Title>
-                <Product_interact>
-                  <Prod_price_amount>
-                    <Price>{product.price} บาท</Price>
-                  </Prod_price_amount>
-                  <Prod_buy_options>
-                    <Button primary onClick={() => addToCart(product._id)} >
-                      <CartIcon />เพิ่มขึ้นรถเข็น
-                    </Button>
-                  </Prod_buy_options>
-                </Product_interact>
-                <Prod_genre>
-                  <h3>Platform : {prodPlatform.name}</h3>
-                </Prod_genre>
-                <Prod_description>{product.description}</Prod_description>
-              </Product_info>
-            </Product_component>
-      </Section>
-      <Footer/>
+      <Center>
+        <ColWrapper>
+          <WhiteBox>
+            <ProductImages images={product.images} />
+          </WhiteBox>
+          <div>
+            <Title>{product.title}</Title>
+            <p>{product.description}</p>
+            <h3>Platform : {prodPlatform.name}</h3>
+            {prodPlatform.category && prodPlatform.category.length > 0 && (
+            <h3>Categories: {prodPlatform.category.map((cat) => cat.name).join(", ")}</h3>
+            )}
+            <PriceRow>
+              <div>
+                <Price>{product.price} THB</Price>
+              </div>
+              <div>
+                <Button primary onClick={() => addToCart(product._id)}>
+                  <CartIcon />เพิ่มขึ้นรถเข็น
+                </Button>
+              </div>
+            </PriceRow>
+          </div>
+        </ColWrapper>
+      </Center>
     </>
   );
 }
@@ -231,4 +247,36 @@ export async function getServerSideProps(context) {
         </ColWrapper>
       </Center>
     </>
+
+
+    (
+    <>
+      <Header />
+      <Section>
+        <Product_component>
+              <Product_pic>
+                <ProductImages images={product.images} />
+              </Product_pic>
+              <Product_info>
+                <Title>{product.title}</Title>
+                <Product_interact>
+                  <Prod_price_amount>
+                    <Price>{product.price} บาท</Price>
+                  </Prod_price_amount>
+                  <Prod_buy_options>
+                    <Button primary onClick={() => addToCart(product._id)} >
+                      <CartIcon />เพิ่มขึ้นรถเข็น
+                    </Button>
+                  </Prod_buy_options>
+                </Product_interact>
+                <Prod_genre>
+                  <h3>แพลทฟอร์ม : {prodPlatform.name}</h3>
+                </Prod_genre>
+                <Prod_description>{product.description}</Prod_description>
+              </Product_info>
+            </Product_component>
+      </Section>
+      <Footer/>
+    </>
+  );
 */

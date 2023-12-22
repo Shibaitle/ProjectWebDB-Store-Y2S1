@@ -20,7 +20,7 @@ const Logo = styled(Link)`
 `;
 const Wrapper = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   padding: 20px 0;
 `;
 const StyledNav = styled.nav`
@@ -69,26 +69,76 @@ const NavButton = styled.button`
   }
 `;
 
+// export default function Header() {
+//   const {cartProducts} = useContext(CartContext);
+//   const [mobileNavActive,setMobileNavActive] = useState(false);
+//   return (
+//     <StyledHeader>
+//         <Wrapper>
+//           <Logo href={'/'}><ShopLogo /></Logo>
+//           <StyledNav mobileNavActive={mobileNavActive}>
+//             <NavLink href={'/products'}>Games</NavLink>
+//             <NavLink href={'/categories'}>Platform</NavLink>
+//             <NavLink href={'/account'}>Account</NavLink>
+//             <NavLink href={'/cart'}><CartIcon/>({cartProducts.length})</NavLink>
+//             <NavLink href={'/login'}>Login</NavLink>
+//             <NavLink href={'/register'}>Register</NavLink>
+
+//           </StyledNav>
+//           <NavButton onClick={() => setMobileNavActive(prev => !prev)}>
+//             <BarsIcon />
+//           </NavButton>
+//         </Wrapper>
+//     </StyledHeader>
+//   );
+// }
+
+
+
 export default function Header() {
-  const {cartProducts} = useContext(CartContext);
-  const [mobileNavActive,setMobileNavActive] = useState(false);
+  const { cartProducts } = useContext(CartContext);
+  const [mobileNavActive, setMobileNavActive] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Add this state
+
+  // Mock login function
+  const handleLogin = () => {
+    // Perform login logic
+    setIsLoggedIn(true);
+  };
+
+  // Mock logout function
+  const handleLogout = () => {
+    // Perform logout logic
+    setIsLoggedIn(false);
+  };
+
   return (
     <StyledHeader>
-      <Center>
-        <Wrapper>
-          <Logo href={'/'}><ShopLogo /></Logo>
-          <StyledNav mobileNavActive={mobileNavActive}>
-            <NavLink href={'/products'}>Games</NavLink>
-            <NavLink href={'/categories'}>Platform</NavLink>
-            <NavLink href={'/account'}>Account</NavLink>
-            <NavLink href={'/cart'}><CartIcon/> ({cartProducts.length})</NavLink>
-            
-          </StyledNav>
-          <NavButton onClick={() => setMobileNavActive(prev => !prev)}>
-            <BarsIcon />
-          </NavButton>
-        </Wrapper>
-        </Center>
+      <Wrapper>
+        <Logo href={'/'}>
+          <ShopLogo />
+        </Logo>
+        <StyledNav mobileNavActive={mobileNavActive}>
+          <NavLink href={'/products'}>Games</NavLink>
+          <NavLink href={'/categories'}>Platform</NavLink>
+          <NavLink href={'/account'}>Account</NavLink>
+          <NavLink href={'/cart'}>
+            <CartIcon />
+            ({cartProducts.length})
+          </NavLink>
+          {isLoggedIn ? (
+            <NavLink href={'/profile'}>Profile</NavLink>
+          ) : (
+            <>
+              <NavLink href={'/login'}>Login</NavLink>
+              <NavLink href={'/register'}>Register</NavLink>
+            </>
+          )}
+        </StyledNav>
+        <NavButton onClick={() => setMobileNavActive((prev) => !prev)}>
+          <BarsIcon />
+        </NavButton>
+      </Wrapper>
     </StyledHeader>
   );
 }
